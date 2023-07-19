@@ -16,7 +16,6 @@ int main()
     
     srand(time(0));
     int zufallszahl = rand() % 2;
-    //cout << zufallszahl << endl;
     
     cout << "Ergebnis: " << liste[zufallszahl] << endl; 
 
