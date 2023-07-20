@@ -17,11 +17,9 @@ int main()
     {   
         do
         {
-            cout << "\nWollen Sie würfeln ? \n 0: Nein \n 1: Ja \n Hier eingeben:";
+            cout << "\n Wollen Sie würfeln ? \n 0: Nein \n 1: Ja \n Hier eingeben:";
             cin >> eingabe;
-
         } while (eingabe != 1);
-        
         
         if (eingabe == 1)
         {
