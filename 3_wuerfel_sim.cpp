@@ -28,5 +28,5 @@ int main()
             cout << "\nGewürfelt: " << zufallszahl << endl; 
         }
 
-    }while(eingabe == 1);
+    } while(eingabe == 1);
 }
