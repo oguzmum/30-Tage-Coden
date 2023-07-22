@@ -26,7 +26,7 @@ void getWinner(string fromUser, string fromBot, int ergebnis[])
         ergebnis[0] += 1; 
     }
 
-    for(int i = 0; i <= 3; i++)
+    for(int i = 0; i < 3; i++)
     {
         if(fromUser.compare(cases[i][0]) == 0 && fromBot.compare(cases[i][1]) == 0)
         {
@@ -40,9 +40,9 @@ void getWinner(string fromUser, string fromBot, int ergebnis[])
     {
         cout << fromBot << " schlägt " << fromUser << "\nDer Bot hat gewonnen\n\n"; 
         ergebnis[2] += 1; 
-    }
-        
+    }    
 }
+
 int main()
 {
     string eingabe;
