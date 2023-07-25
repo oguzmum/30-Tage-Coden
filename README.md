@@ -1,6 +1,6 @@
 # 30-Tage-Coden
 
-### Kruze Notiz 
+### Kurze Notiz 
 Ich werde versuchen täglich ein Projekt zu machen. Vielleicht mache ich aber auch mal mehrere an einem Tag oder einige dauern länger. 
 Mir geht es eher darum mehr zu programmieren und C++ besser kennenzulernen als sich an einen strikten Plan zu halten.
 
