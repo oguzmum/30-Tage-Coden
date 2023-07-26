@@ -18,7 +18,7 @@ Tag | Projekt
 8  | Quersumme einer Zahl
 9  | Floodfill (spielfeld erstellen und füllen)
 10  | Brennweiten ausrechner mit Abbildungsgleichung
-11  | Abkühlen mit dem Fan Blade (Arduino, Stepper Motor benutzen)
+11  | Gleichstrommotor mit dem Fan Blade benutzen (Arduino)
 12  | Einheitenumrechner
 13  | wichtigsten Suchalgorithmen implementieren
 14  | Hangman
