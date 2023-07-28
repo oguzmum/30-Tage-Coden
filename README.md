@@ -20,7 +20,7 @@ Tag | Projekt
 10  | Brennweiten ausrechner mit Abbildungsgleichung
 11  | Gleichstrommotor mit dem Fan Blade benutzen (Arduino)
 12  | Einheitenumrechner
-13  | wichtigsten Suchalgorithmen implementieren
+13  | wichtigsten Such- und Sortieralgorithmen implementieren
 14  | Hangman
 15  | sortierte Arrays mergen (vereinen)
 16  | Backtracking (gegebenes Labyrinth mit Zeil einlesen und kürzeste Route finden)
