@@ -1,9 +1,12 @@
 /* Rechne hier nicht jede beliebige Einheit um zB Zeit, Yard, Flächen.. undso
     sondern rechne allgemein 10er Potenzen um
+    also:
     - bestimmen welche 10er Potenz man vorliegen hat und in welche man umrechnen will
     - dann anwendbar auf: längen, ampere, volt, leistung, masse u.v.m
 
+    die Logik zur Umrechnung der 10er Potenzen steht als Kommentar in der Funktion calcNewUnit
 */
+void calcNewUnit(int from, int to); //cmd gedrückt halten und linke maustaste; springt dann zur Funktion
 
 #include <iostream>
 #include <cstdlib>
@@ -24,8 +27,8 @@ const string inshort[17] = {"E", "P", "T", "G", "M", "k", "h", "da", "-", "d", "
 //die dezimalwertefür ausgabe bei der Tabelle
 const double value[17] = {pow(10, 18), pow(10, 15), pow(10, 12), pow(10, 9), pow(10, 6), pow(10, 3), pow(10, 2), pow(10, 1), pow(10, 0), pow(10, -1), pow(10, -2), pow(10, -3), pow(10, -6), pow(10, -9), pow(10, -12), pow(10, -15), pow(10, -18)};
 
-//die Potenzen um leichten zur gewünschten Potenz umzurechnen
-const int potenz[17] = {18, 15, 12, 9, 6, 3, 2, 1, 0, -1, -2, -3, -6, -9, -12, -15, -18};
+//die Exponenten um leichten zur gewünschten Potenz umzurechnen
+const int exponent[17] = {18, 15, 12, 9, 6, 3, 2, 1, 0, -1, -2, -3, -6, -9, -12, -15, -18};
 
 
 int getIndex(string abkuerzung)
@@ -44,13 +47,13 @@ int getIndex(string abkuerzung)
     return index; 
 }
 
-int getIndex_w_Potenz(int pot)
+int getIndex_w_Expo(int exp)
 {
     //index suchen, wo der Präfix ist - und den entsprechenden index zurückgeben
     unsigned short int index; 
-    for(int i = 0; i < int(sizeof(potenz) / sizeof(potenz[0])); i++)
+    for(int i = 0; i < int(sizeof(exponent) / sizeof(exponent[0])); i++)
     {
-        if(potenz[i] == pot)
+        if(exponent[i] == exp)
         {
             index = i; 
         }
@@ -70,7 +73,6 @@ void showUnits()
 
 int help()
 {
-    //ToDO: hier noch ein Beispiel zeigen, wei man's erkennt
     int fromPot;
     string theSign;
     unsigned short int theIndex; 
@@ -80,7 +82,7 @@ int help()
     cin >> theSign; 
 
     theIndex = getIndex(theSign); 
-    fromPot = potenz[theIndex]; 
+    fromPot = exponent[theIndex]; 
     return fromPot; 
 }
 
@@ -101,7 +103,7 @@ int fromUnit()
             break; 
 
         case 1: 
-            cout << "\nWelchen Präfix hat dein Wert?\nBitte gib einer dieser Zeichen ein\n";
+            cout << "\nWelchen Präfix hat dein Wert?\nBitte gib einer dieser Zeichen ein (von den Abkürzungen)\n";
             for(int i = 0; i < int(sizeof(praefixe) / sizeof(praefixe[0])); i++)
             {  
                 cout << praefixe[i] << "\t";  
@@ -115,7 +117,7 @@ int fromUnit()
             cin >> theSign;
 
             theIndex = getIndex(theSign); 
-            fromPot = potenz[theIndex]; 
+            fromPot = exponent[theIndex]; 
             break; 
 
         default:
@@ -134,25 +136,36 @@ int wishedUnit()
     cin >> getTo; 
 
     unsigned short int theIndex;
-    int toPot; 
+    int toExpo; 
     theIndex = getIndex(getTo); 
-    toPot = potenz[theIndex]; 
-    return toPot; 
+    toExpo = exponent[theIndex]; 
+    return toExpo; 
 }
 
 void calcNewUnit(int from, int to)
 {
     /* Beispiel: 500 mm in m -> 0,5m        hier: von 10^(-3) nach 10^0         im Prinzp wurde gerechnet: 500 * 10^(-3)
-                                wie wurden die Potenzen also miteinander arithmetisiert: -3 - 0
+                                wie wurden die Exponenten also miteinander arithmetisiert: -3 - 0
                           km -> 0,0005 km   hier: von 10^(-3) nach 10^3         im Prinzp wurde gerechnet: 500 * 10^(-6)
-                                wie wurden die Potenzen also miteinander arithmetisiert: -3 - 3
+                                wie wurden die Exponenten also miteinander arithmetisiert: -3 - 3
                           µm -> 500.000 µm  hier: von 10^(-3) nach 10^(-6)      im Prinzp wurde gerechnet: 500 * 10^3
-                                wie wurden die Potenzen also miteinander arithmetisiert: -3 - (-6)
+                                wie wurden die Exponenten also miteinander arithmetisiert: -3 - (-6)
 
         daraus abzuleitende allgemeine Regel: 
-            - Potenzen immer subtrahieren, um neue Potenz zu bestimmen
-            - die neu ergebene Potenz als 10er Potenz nehmen
+            - Exponenten immer subtrahieren, um neuen Exponenten zu bestimmen
+            - den neu berechneten Exponenten als 10er Potenz nehmen
             - diese 10er Potenz mit dem vorhandenen Wert (im Bsp: 500) multiplizieren
+
+        ist auch mathematisch über Bruchgesetze begründbar
+            Potenzgesetz für Zahlen mit gleicher Basis: a^m/a^n = a^(m-n)
+
+            um eine neue 10er Potenz für ein gegebenen Wert zu berechnen, kann man die Potenzen miteinander teilen (also Exponenten subtrahieren)
+            zum Bsp oben: 
+                von mm in m: 500•(10^(-3)/10^(0)) = 500•(10^(-3-0)) = 500•10^(-3)
+
+                von mm in km: 500•(10^(-3)/10^(3)) = 500•(10^(-3-3)) = 500•10^(-6)
+
+                von mm in µm: 500•(10^(-3)/10^(-6)) = 500•(10^(-3-(-6))) = 500•10^3
     */
 
     double given, newcalc; 
@@ -162,15 +175,14 @@ void calcNewUnit(int from, int to)
     cout << "\nWas ist das für eine Einheit (meter, kilo, volt...), gib es als Abkürzung ein: "; 
     cin >> unit; 
 
-    int newPotenz; 
-    newPotenz = from - to; //die neue Potenz berechnen
-    newcalc = given * pow(10, newPotenz); //den neuen Dezimalwert in der geünschten Einheit berechnen
+    int newExpo = from - to; //den neuen Exponenten berechnen
+    newcalc = given * pow(10, newExpo); //den neuen Dezimalwert in der gewünschten Einheit berechnen
 
 
     //nochmal index raussuchen, um bei der finalen Ausgabe auch die Einheiten mit anzugeben
     int fi, ti; //fi = fromIndex, ti = toIndex
-    fi = getIndex_w_Potenz(from); 
-    ti = getIndex_w_Potenz(to); 
+    fi = getIndex_w_Expo(from); 
+    ti = getIndex_w_Expo(to); 
 
     cout << "\n " << given << " " << inshort[fi] + unit << " sind " <<  newcalc << " " << inshort[ti] + unit; 
 
