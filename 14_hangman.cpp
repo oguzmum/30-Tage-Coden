@@ -1,25 +1,67 @@
-//das ohne Einbindung der duden.txt Datei, weil das bei VSCode iwie nicht funktioniert
+//umlaute funktionieren nicht:)
+/*Ausführen über VsCode Terminal 
+    • im Richtigen Ordner befinden (prüfen mit pwd)
+        • nicht im richtigen? -> mit cd {ornder} dahin; oder mit cd.. ordnerverzeichnis zurück
+    • kompilieren mit g++ --std=c++11 {dateiname}
+    • ausführen mit ./a.out
+*/
 
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
 #include <vector>
 #include <algorithm>
+#include <iostream>
+#include <fstream>
+#include <cctype>
 
 using namespace std; 
 
 bool checkAlpha(string word)
 {
-    return std::all_of(word.begin(), word.end(), ::isalpha);
+    return all_of(word.begin(), word.end(), ::isalpha);
 }
 
 string randomWord()
 {
-    string words[] = {"apfel", "banane", "schnecke", "ampel", "schule", "schreibtisch", "computer", "hexadezimal", "zylinder"}; 
-    srand(time(0));
-    
-    string randomW = words[ rand()% sizeof(words)/sizeof(words[0]) ];
+    ifstream duden("duden.txt");
+    if(!duden.is_open())
+    {
+        cerr << "\nDatei konnte nicht geöffnet werden" << endl;
+        exit(0);
+    }
 
+    vector<string> words;
+    string word;
+
+    for(string line; getline(duden, line);)
+    {
+        words.push_back(line);
+    }
+    duden.close();
+
+    srand(time(0));
+    if(words.empty())
+    {
+        cerr << "\nKeine Wörter gefunden";
+        exit(0);
+    }
+
+    string randomW = words[ rand()% words.size() ];
+
+    //zu kleinbuchstaben alles
+    for (char &c : randomW)
+    {
+        c = tolower(static_cast<unsigned char>(c));
+    }
+
+    /*
+    //ohne Duden txt Datei
+    string words[] = {"apfel", "banane", "schnecke", "ampel", "schule", "schreibtisch", "computer", "hexadezimal", "zylinder"}; 
+
+    srand(time(0));
+    string randomW = words[ rand()% sizeof(words)/sizeof(words[0]) ];
+    */
     return randomW;
 }
 
@@ -74,13 +116,11 @@ vector<int> checkLetter(string word, vector<string> guessed)
     for(int i = 0; i < int(word.size()); i++)
     {
         //immer den zuletzt eingegebenen Buchstaben prüfen
-        
         if(guessed.back()[0] == word[i])
         {
             indexe.push_back(i); 
             correct = true; 
         }
-        
     }
 
     if(correct == false)
@@ -118,8 +158,7 @@ bool checkWin(vector<int> theIndexe, string rW, string wordButHidden)
 
 int main()
 {
-    string rW = randomWord(), wordButHidden; 
-
+    string rW = randomWord(), wordButHidden;
     for(int i = 0; i < int(rW.size()); i++)
     {
         wordButHidden += '_';
@@ -128,30 +167,29 @@ int main()
     vector<int> theIndexe; //indexe der buchstaben die richtig geraten worden sind
 
     bool foundWord = false; 
-    unsigned int rounds = 0, max = 12; 
+    unsigned int rounds = 0, max = 12;
 
     while(foundWord == false)
     {
-        rounds += 1; 
+        rounds += 1;
         cout << "\naktuelle Runde: " << rounds << ". Du hast noch: " << max - rounds << " Runden!!";
         if(rounds > max)
         {
             cout << "\nDu hast zu viele Versuche gebraucht :(";
-            break; 
+            break;
         }
 
         vector<int> newIndexe;
         string newGuessed;
-       
+
         newGuessed = askForLetter(guessedChar);
         guessedChar.push_back(newGuessed);
 
-        newIndexe = checkLetter(rW, guessedChar); 
-        theIndexe.insert(theIndexe.end(), newIndexe.begin(), newIndexe.end()); 
+        newIndexe = checkLetter(rW, guessedChar);
+        theIndexe.insert(theIndexe.end(), newIndexe.begin(), newIndexe.end());
 
         foundWord = checkWin(theIndexe, rW, wordButHidden);
     }
-
 
     cout << "\nDas Wort ist: " << rW; 
     
