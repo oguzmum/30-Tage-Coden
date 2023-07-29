@@ -2,8 +2,8 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "C/C++ Runner: Debug Session",
-      "type": "lldb",
+      "name": "C++ Launch",
+      "type": "cppdbg",
       "request": "launch",
       "args": [],
       "cwd": "/Users/oguzm1/Programmieren/C++/30 Tage Coden",
