@@ -1,7 +1,7 @@
 //umlaute funktionieren nicht:)
 /*Ausführen über VsCode Terminal 
     • im Richtigen Ordner befinden (prüfen mit pwd)
-        • nicht im richtigen? -> mit cd {ornder} dahin; oder mit cd.. ordnerverzeichnis zurück
+        • nicht im richtigen? -> mit cd {ornder} dahin; oder mit cd .. ordnerverzeichnis zurück
     • kompilieren mit g++ --std=c++11 {dateiname}
     • ausführen mit ./a.out
 */

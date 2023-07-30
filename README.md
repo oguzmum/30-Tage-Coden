@@ -23,7 +23,7 @@ Tag | Projekt
 13  | wichtigsten Such- und Sortieralgorithmen implementieren
 14  | Hangman
 15  | sortierte Arrays mergen (vereinen)
-16  | Backtracking (gegebenes Labyrinth mit Zeil einlesen und kürzeste Route finden)
+16  | Backtracking (gegebenes Labyrinth mit Ziel einlesen und kürzeste Route finden)
 17  | Bücherverwaltung mit txt Datei als Datenbank
 18  | Satzgenerator
 19  | Wetter & Luftfeuchtigkeit messen mit dem Arduino

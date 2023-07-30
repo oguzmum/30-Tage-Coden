@@ -121,6 +121,7 @@
     "deque": "cpp",
     "fstream": "cpp",
     "iomanip": "cpp",
-    "stack": "cpp"
+    "stack": "cpp",
+    "13_such_und_sortier_algos": "cpp"
   }
 }

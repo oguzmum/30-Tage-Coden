@@ -23,7 +23,6 @@ using std::srand;
 using std::vector; 
 
 
-
 /*hiermit Zufallszahlen erstellt
     srand(time(0));
     for (int i = 0; i < 20; i++)
