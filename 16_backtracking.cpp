@@ -96,7 +96,7 @@ vector<pair<int, int> > backtrack(int row, int col, vector<pair<int, int> >& rou
         return route;
     }
 
-    vector<pair<int, int> > nachbarn = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}}; 
+    vector<pair<int, int> > nachbarn = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}}; 
     vector<vector< pair<int, int> > > possibleRoutes;
     for (const auto& n : nachbarn) 
     {
@@ -104,7 +104,8 @@ vector<pair<int, int> > backtrack(int row, int col, vector<pair<int, int> >& rou
         int columnNumberNew = col + n.second;
 
         //gucken ob man sich noch im feld befindet, und ob man noch schon an der neu berechneten Stelle war oder nicht
-        if (isFree(rowNumberNew, columnNumberNew) && isInField(rowNumberNew, columnNumberNew) && find(route.begin(), route.end(), make_pair(rowNumberNew, columnNumberNew)) == route.end())
+        if (isFree(rowNumberNew, columnNumberNew) && isInField(rowNumberNew, columnNumberNew) 
+        && find(route.begin(), route.end(), make_pair(rowNumberNew, columnNumberNew)) == route.end())
         {
             vector<pair<int, int>> temp = backtrack(rowNumberNew, columnNumberNew, route); //rekursiver aufruf
             if (!temp.empty()) 
