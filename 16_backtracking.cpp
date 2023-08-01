@@ -96,6 +96,8 @@ vector<pair<int, int> > backtrack(int row, int col, vector<pair<int, int> >& rou
         return route;
     }
 
+    //hatte nachbarn vorher so: {{0, 1}, {0, -1}, {1, 0}, {-1, 0}} -- da wurde dann die wirklich kürzeste Route nicht gefunden; 
+    //bei dieser "NachbarReihenfolge" findet er die tatsächlich kürzeste Route
     vector<pair<int, int> > nachbarn = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}}; 
     vector<vector< pair<int, int> > > possibleRoutes;
     for (const auto& n : nachbarn) 
