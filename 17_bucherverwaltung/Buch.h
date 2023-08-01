@@ -2,6 +2,7 @@
 #include <string>
 using namespace std; 
 
+//ToDO Bewertung noch als float machen
 class Buch
 {
 public:

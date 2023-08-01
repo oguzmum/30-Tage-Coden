@@ -1,3 +1,0 @@
-Technik, DK, 0, 1, 7, 1
-gustaf, mark, 23, 0, 7, 2
-Fisch, Hai, 505, 0, 8, 3
