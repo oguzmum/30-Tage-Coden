@@ -9,7 +9,8 @@ void bookInput()
 {   
     //anordnung int txt datei: titel, autor, datum, gelesen?, bewertung, Id
     string titel, autor; 
-    unsigned int datum, bewertung, gelesen;  
+    unsigned int datum, gelesen;  
+    float bewertung; 
 
     cout <<"\nTitel: "; 
     cin >> titel; 
@@ -71,7 +72,7 @@ Buch search()
 
 void werten(Buch buch)
 {
-    unsigned int wertung; 
+   float wertung; 
     cout << "\nVon 0-10 welche Wertung würdest du geben: ";
     cin >> wertung; 
     buch.setBewertung(wertung); 
@@ -120,13 +121,14 @@ void askUser()
 
 int main()
 {   
-    //ToDo: muss noch testen ob er wenn zB letzten 2 elemte nicht einegegben sind; 
-    //ob er dann autor.. von ächsten eintrag in txt datei für die atribute nimmt
-    /*
-        nach eingabe, v drücken - wird iwie nicht ausgegeben
-        beweertung als float 
-        ausgabenformatierung "schöner"
-        Id's besser verwalten
+    /*ToDo: (will hier jz nicht zu viel zeit verlieren, mache nach der 30 Tage coden challenge vllt weiter (dann als GUI???))
+        • Id's besser verwalten; statt bookCount zB eine eigene Datenbank dafür
+        • auf doppelte ID's achten
+        • bestimmtes buch löschen können 
+        • ganze datenbank löschen können
+        • beim neu bewerten, gelesen markieren eines bestehendes Buches, das auch in die txt datei schreiben
+            -> also so eine art "replaceFkt" schreiben
+        • 
     */
     bv.readDatabase(); //um schonmal bookCount undso rauszukriegen
     

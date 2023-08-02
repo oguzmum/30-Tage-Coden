@@ -2,13 +2,12 @@
 #include <string>
 using namespace std; 
 
-//ToDO Bewertung noch als float machen
 class Buch
 {
 public:
 	Buch(); //standardkonstruktor
     Buch(string titel, string autor, unsigned int erscheinungsdatum); 
-    Buch(string titel, string autor, unsigned int erscheinungsdatum, bool gelesen, unsigned int bewertung); 
+    Buch(string titel, string autor, unsigned int erscheinungsdatum, bool gelesen, float bewertung); 
     //id nicht drin, weil das soll der nutzer nicht eingeben können
 
     //setter
@@ -16,7 +15,7 @@ public:
     void setAutor(string autor); 
     void setGelesen(bool gelesen);
     void setDatum(unsigned int datum);
-    void setBewertung(unsigned int bewertung); 
+    void setBewertung(float bewertung); 
     void setId(unsigned int id);
 
     //getter
@@ -24,11 +23,12 @@ public:
     string getAutor() const;
     bool getGelesen() const; 
     unsigned int getDatum() const; 
-    unsigned int getBewertung() const; 
+    float getBewertung() const; 
     unsigned int getId() const; 
 
 private:
 	string titel, autor; 
     bool schonGelesen; 
-    unsigned int erscheinungsDatum, bewertung, id;  
+    unsigned int erscheinungsDatum, id;  
+    float bewertung; 
 };

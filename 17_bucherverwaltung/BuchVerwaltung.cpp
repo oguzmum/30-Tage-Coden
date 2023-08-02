@@ -6,9 +6,6 @@
 #include <vector>
 #include <string>
 
-//ToDo: hier noch nachIndex suchen, id verwaltung, (auf doppelte achten?)
-//      datenbank löschen, zurücksetzen können; o auch ein Buch nur löschen
-//          - beim löschen dann verschiebung der ID's beachten (o. eigene datenbank für ID's)
 using namespace std; 
 
 unsigned BuchVerwaltung::bookCount = 0; 
@@ -68,13 +65,17 @@ Buch BuchVerwaltung::getBook_wId(unsigned int id)
 void BuchVerwaltung::showAllBooks()
 {
     readDatabase(); 
-    //ToDo: besser formattieren
-    cout << "\nAlle Bücher, die in der Datenbank liegen: "; 
-    cout << "\nId \t Titel \t\t Autor \t Erscheinungsdatum \t Gelesen? \t Bewertung";
-    for(int i = 0; i < bookCount+1; i++)
+    
+    cout << "\nBücher, die in der Datenbank liegen: " << bookCount << endl << endl; 
+    for(int i = 0; i < bookCount; i++)
     {
-        cout << endl << buecher[i].getId() << "\t   " << buecher[i].getTitel() << "\t\t   " << buecher[i].getAutor() << "\t\t" 
-        << buecher[i].getDatum() << "\t\t     " << buecher[i].getGelesen() << "\t\t     " << buecher[i].getBewertung();
+        cout << endl; 
+        cout << "=========== Buch Id: " << buecher[i].getId() << " ===========" << endl;
+        cout << "Titel: " << "\t\t" << buecher[i].getTitel() << endl;
+        cout << "Autor:" << "\t\t" << buecher[i].getAutor() << endl ;
+        cout << "Erschienen: " << "\t" << buecher[i].getDatum() << endl; 
+        cout << "Gelesen?: " << "\t" << buecher[i].getGelesen() << endl;
+        cout << "Bewertung: " << "\t" << buecher[i].getBewertung() << endl; 
     }
 }
 
@@ -105,18 +106,12 @@ void BuchVerwaltung::readDatabase()
             getline(ss, bewertungStr, ',');
             getline(ss, idStr);
             
-
-            // cout << "\ntitel: " << titelStr; 
-            // cout << "\nautor: " << autorStr; 
-            // cout << "\nDatum: " << datumStr; 
-            // cout << "\ngelesen: " << gelesenStr; 
-            // cout << "\nbewertung: " << bewertungStr; 
-            // cout << "\nid: " << idStr; 
-
-            bool gelesen = (gelesenStr == "0") ? false : true; //wenn gelesen in txt 0, dann false, sonst true
-
+            //das leerzeichen muss bleiben, oder muss es beim eingeben in der Datenbank ändern; 
+            //ohne leerzeichen wird vergleich immer false, also wird gelesen = true, obwohl es false sein müsste
+            bool gelesen = (gelesenStr.compare(" 0") == 0) ? false : true; //wenn gelesen in txt 0, dann false, sonst true
+            cout << "\nGelesen: " << gelesen; 
             //Buch(string titel, string autor, unsigned int erscheinungdatum, bool gelesen, unsigned int bewertung); 
-            Buch* newBook = new Buch(titelStr, autorStr, stoi(datumStr), gelesen, stoi(bewertungStr));
+            Buch* newBook = new Buch(titelStr, autorStr, stoi(datumStr), gelesen, stof(bewertungStr));
             newBook->setId(stoi(idStr));
             buecher.push_back(*newBook); 
             bookCount += 1; 
@@ -133,17 +128,17 @@ unsigned BuchVerwaltung::getBookCount()
     return bookCount; 
 }
 
-void BuchVerwaltung::writeFromUserInput(string titel, string autor, unsigned int datum, unsigned int gelesen, unsigned int bewertung, unsigned int id)
+void BuchVerwaltung::writeFromUserInput(string titel, string autor, unsigned int datum, unsigned int gelesen, float bewertung, unsigned int id)
 { //anordnung int txt datei: titel, autor, datum, gelesen?, bewertung, Id
+    cout << "\nGelsen beim schreiben: " << gelesen; 
     ofstream database(dateiName, ios::app); //im append modus öffnen, um nicht zu überschreiben
 
     if(database.is_open() && database.good())
     {
         //mit komma trennen für die spezifische anordnung
         //anordnung: titel, autor, datum, gelesen?, bewertung, Id
-        cout << "\nbei userinput: " << titel << " " << autor << " " << datum << " " << gelesen << " " << id; 
-        database << titel << ", ";
-        database << autor << ", ";
+        database << titel << ",";
+        database << autor << ",";
         database << datum << ", ";
         database << gelesen << ", ";
         database << bewertung << ", ";
@@ -177,6 +172,11 @@ Buch BuchVerwaltung::searchByTitle()
 
 void BuchVerwaltung::printBook(Buch* book)
 {
-    cout << "\nId \t Titel \t\t Autor \t Erscheinungsdatum \t Gelesen? \t Bewertung";
-    cout << endl << book->getId() << "\t" << book->getTitel() << "\t" << book->getAutor() << book->getDatum() << "\t" << book->getGelesen() << "\t" << book->getBewertung(); 
+    cout << endl; 
+    cout << "=========== Buch Id: " << book->getId() << " ===========" << endl;
+    cout << "Titel: " << "\t\t" << book->getTitel() << endl;
+    cout << "Autor: " << "\t\t" << book->getAutor() << endl ;
+    cout << "Erschienen: " << "\t" << book->getDatum() << endl; 
+    cout << "Gelesen?: " << "\t" << book->getGelesen() << endl;
+    cout << "Bewertung: " << "\t" << book->getBewertung() << endl;
 }

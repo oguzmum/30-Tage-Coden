@@ -13,7 +13,7 @@ Buch::Buch(string titel, string autor, unsigned int erscheinungsdatum)
     setAutor(autor); 
     setDatum(erscheinungsdatum); 
 }
-Buch::Buch(string titel, string autor, unsigned int erscheinungsdatum, bool gelesen, unsigned int bewertung)
+Buch::Buch(string titel, string autor, unsigned int erscheinungsdatum, bool gelesen, float bewertung)
 {
     setTitel(titel); 
     setAutor(autor); 
@@ -39,7 +39,7 @@ void Buch::setDatum(unsigned int datum)
 {
     erscheinungsDatum = datum; 
 }
-void Buch::setBewertung(unsigned int bewertung)
+void Buch::setBewertung(float bewertung)
 {
     this->bewertung = bewertung; 
 }
@@ -65,7 +65,7 @@ unsigned int Buch::getDatum() const
 {
     return erscheinungsDatum;
 }
-unsigned int Buch::getBewertung() const
+float Buch::getBewertung() const
 {
     return bewertung; 
 }

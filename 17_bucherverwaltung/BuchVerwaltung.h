@@ -16,7 +16,7 @@ public:
 
     unsigned getBookCount();
 
-    void writeFromUserInput(string titel, string autor, unsigned int datum, unsigned int gelesen, unsigned int bewertung, unsigned int id); 
+    void writeFromUserInput(string titel, string autor, unsigned int datum, unsigned int gelesen, float bewertung, unsigned int id); 
 
     Buch searchByTitle();
 
