@@ -60,6 +60,15 @@ void generateSentence()
 
 int main()
 {
-    generateSentence(); 
+    bool weiter = false; 
+    unsigned int short choice = 0; 
+    do
+    {
+        generateSentence(); 
+        cout << "\nNoch ein Satz (0) Nein (1) Ja: "; 
+        cin >> choice; 
+        weiter = (choice == 0) ? true : false; 
+    } while (!weiter);
+    
     return 0;   
 }
