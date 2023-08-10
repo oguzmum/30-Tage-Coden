@@ -1,3 +1,0 @@
-/Users/oguzm1/Programmieren/C++/30 Tage Coden/23_basicBV/build/CMakeFiles/MyProject.dir
-/Users/oguzm1/Programmieren/C++/30 Tage Coden/23_basicBV/build/CMakeFiles/edit_cache.dir
-/Users/oguzm1/Programmieren/C++/30 Tage Coden/23_basicBV/build/CMakeFiles/rebuild_cache.dir
