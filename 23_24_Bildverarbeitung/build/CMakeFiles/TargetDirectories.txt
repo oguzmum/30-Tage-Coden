@@ -1,0 +1,3 @@
+/Users/oguzm1/Programmieren/C++/30 Tage Coden/23_24_Bildverarbeitung/build/CMakeFiles/MyProject.dir
+/Users/oguzm1/Programmieren/C++/30 Tage Coden/23_24_Bildverarbeitung/build/CMakeFiles/edit_cache.dir
+/Users/oguzm1/Programmieren/C++/30 Tage Coden/23_24_Bildverarbeitung/build/CMakeFiles/rebuild_cache.dir

@@ -103,7 +103,6 @@ void histogrammOpenCV(Mat bild)
 void histogramm(Mat bild)
 {
     vector<float> grauwerte(256, 0.0); 
-    cout << "\nHallo";
     //grauwerte aufaddieren
     for(int row = 0; row < bild.rows; row++)
     {
@@ -182,6 +181,78 @@ void histogramm(Mat bild)
     imshow("Histogram Plot", plot);
 }
 
+void histoEbnen(Mat bild)
+{
+    /*ziel von histogramm ebnen: kontrast im bild erhöhen
+        wie: das normale historgamm kummulieren und damit neue grauwerte (bzw. Farbwerte) berechnen - das ins neue Bild schreiben
+    */
+
+    vector<float> grauwerte(256, 0.0); 
+    //grauwerte aufaddieren
+    for(int row = 0; row < bild.rows; row++)
+    {
+        for(int col = 0; col < bild.cols; col++)
+        {
+            grauwerte[bild.at<uchar>(row, col)] += 1;
+            //den wert als Index nutzen und die grauwerte aufaddieren
+        }
+    }
+
+    vector<float> relGW(256, 0.0); 
+    //relative häufigkeit
+    //256; weil max GW ist 255, aber evtl gibt es weniger nicht so hohe werte in einem Bild
+    for(int i = 0; i < grauwerte.size(); i++)
+    {
+        relGW[i] = grauwerte[i]/(bild.rows * bild.cols);
+        cout << "\nGrauwert: " << i << " Häufigkeit: " << relGW[i] * 100 << "%";
+    }
+
+    vector<float> kumHisto(256, 0.0); 
+    float summe = 0; 
+    cout << endl; 
+    for(int i = 0; i < relGW.size() ; i++)
+    {
+        cout << "Grauwerte: " << relGW[i] << endl;
+        summe += relGW[i]; //kummulieren
+        kumHisto[i] = summe; //an jeweilige stelle zuweisen
+        cout << "Kumhisto: " << kumHisto[i] << endl;
+        cout << "\nSumme: " << summe; 
+    }
+
+    
+    Mat geebnet(bild.rows, bild.cols, CV_8UC1);  
+    for(int i = 0; i < bild.rows; i++)
+    {
+        for(int x = 0; x < bild.cols; x++)
+        {
+            //formel: runden((256-1)*kummulierte Histogramm(gw))
+            int newPixelValue = round(255 * kumHisto[bild.at<uchar>(i, x)]);
+            geebnet.at<uchar>(i, x) = newPixelValue;
+        }
+    }
+
+    // imshow("original Bild", bild); 
+    
+    // imshow("Histogramm geebnet", geebnet); 
+    //ich bin 100% sicher, dass der rechenweg bis hierhin richtig ist - aber iwie ist diese ausgabe dann nur das erste linke drittel
+
+    //versuchen mit resize
+    namedWindow("Original Bild", WINDOW_NORMAL); // Create a resizable window
+    imshow("Original Bild", bild); 
+
+    namedWindow("Histogramm geebnet", WINDOW_NORMAL); // Create a resizable window
+    imshow("Histogramm geebnet", geebnet); 
+
+    // You can also resize the windows to a specific size if desired
+    resizeWindow("Original Bild", bild.cols, bild.rows);
+    resizeWindow("Histogramm geebnet", bild.cols, bild.rows);
+
+
+    //imwrite("geebnet.jpg", geebnet);
+
+    //bringt iwie alles nix, wird immer noch nur linkes drittel angeziegt :(
+}
+
 int main(int argc, char** argv)
 {
     Mat bild = imread("seerose512.jpg");
@@ -193,22 +264,22 @@ int main(int argc, char** argv)
     }
     imshow("geöffnetes Bild", bild); 
 
-    float mw = mittelwert(bild); 
-    cout << "\nMittelwert: " << mw; 
+    // float mw = mittelwert(bild); 
+    // cout << "\nMittelwert: " << mw; 
 
-    Scalar mwCV = mean(bild); //von opencv selbst, zum vergleichen
-    cout << "\nVon Opencv Mittelwert: " << mwCV[0]; 
+    // Scalar mwCV = mean(bild); //von opencv selbst, zum vergleichen
+    // cout << "\nVon Opencv Mittelwert: " << mwCV[0]; 
 
 
-    float var = varianz(bild); 
-    cout << "\nVarianz: " << var; 
+    // float var = varianz(bild); 
+    // cout << "\nVarianz: " << var; 
 
-    histogramm(bild); 
+    // histogramm(bild); 
     
-    histogrammOpenCV(bild); //mit calcHist von OpenCV
+    // histogrammOpenCV(bild); //mit calcHist von OpenCV
 
 
-
+    histoEbnen(bild);
 
     waitKey(0); 
     destroyAllWindows();
